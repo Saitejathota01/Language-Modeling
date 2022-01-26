@@ -63,7 +63,7 @@ def countUnigrams(corpus):
     list_of_words=list(unique for words in corpus for unique in words)
     for unique in list_of_words:
         if unique not in unigram_count:
-            unigram_count[unique]= list_of_words.count(i)     
+            unigram_count[unique]= list_of_words.count(unique)     
     return unigram_count
     
 
@@ -75,7 +75,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    unique_start_words=[]
+    for words in corpus:
+        if words[0] not in unique_start_words:
+            unique_start_words.append(words[0])
+    return unique_start_words
+    
 
 
 '''
@@ -311,6 +316,7 @@ if __name__ == "__main__":
     #test.testGetCorpusLength()
     #test.testBuildVocabulary()
     test.testCountUnigrams()
+    test.testGetStartWords()
 
     ## Uncomment these for Week 2 ##
 """
