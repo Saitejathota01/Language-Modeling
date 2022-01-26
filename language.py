@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from enum import unique
 import language_tests as test
 
 project = "Language" # don't edit this
@@ -58,7 +59,13 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    unigram_count={}
+    list_of_words=list(unique for words in corpus for unique in words)
+    for unique in list_of_words:
+        if unique not in unigram_count:
+            unigram_count[unique]= list_of_words.count(i)     
+    return unigram_count
+    
 
 
 '''
@@ -302,7 +309,8 @@ if __name__ == "__main__":
     test.runWeek1()
     #test.testLoadBook()
     #test.testGetCorpusLength()
-    test.testBuildVocabulary()
+    #test.testBuildVocabulary()
+    test.testCountUnigrams()
 
     ## Uncomment these for Week 2 ##
 """
