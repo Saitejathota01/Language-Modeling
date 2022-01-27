@@ -145,7 +145,17 @@ Parameters: list of strs ; dict mapping strs to ints ; int
 Returns: list of floats
 '''
 def buildUnigramProbs(unigrams, unigramCounts, totalCount):
-    return
+    probabilitylist=[]
+    unigramcount=0
+    for word in range(len(unigrams)):
+        if unigrams[word] in unigramCounts:
+            unigramcount=unigramCounts[unigrams[word]]
+            probability=unigramcount/totalCount
+            probabilitylist.append(probability) 
+        else:
+            probabilitylist.append(0)
+    return probabilitylist
+    
 
 
 '''
@@ -156,6 +166,8 @@ Returns: dict mapping strs to (dicts mapping strs to (lists of values))
 '''
 def buildBigramProbs(unigramCounts, bigramCounts):
     return
+    
+
 
 
 '''
@@ -349,6 +361,7 @@ if __name__ == "__main__":
     test.week2Tests()
     print("\n" + "#"*15 + " WEEK 2 OUTPUT " + "#" * 15 + "\n")
     test.runWeek2()
+    test.testBuildUniformProbs()
 
 
     ## Uncomment these for Week 3 ##
