@@ -4,6 +4,7 @@ Name:
 Roll No:
 """
 
+from enum import unique
 import language_tests as test
 
 project = "Language" # don't edit this
@@ -17,7 +18,14 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    openingbook=open(filename,"r")
+    readinglines= openingbook.read()
+    corpus=[]
+    for words in readinglines.split("\n"):
+        if len(words) > 0:
+           line=words.split(" ")
+           corpus.append(line)   
+    return corpus      
 
 
 '''
@@ -27,7 +35,9 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    return
+    total_number_of_words_in_list =sum(len(Row) for Row in corpus)
+    return total_number_of_words_in_list
+
 
 
 '''
@@ -37,7 +47,9 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def buildVocabulary(corpus):
-    return
+    list_of_unique_unigrams= list(set(unique for words in corpus for unique in words))
+    return list_of_unique_unigrams
+
 
 
 '''
@@ -47,7 +59,13 @@ Parameters: 2D list of strs
 Returns: dict mapping strs to ints
 '''
 def countUnigrams(corpus):
-    return
+    unigram_count={}
+    list_of_words=list(unique for words in corpus for unique in words)
+    for unique in list_of_words:
+        if unique not in unigram_count:
+            unigram_count[unique]= list_of_words.count(unique)     
+    return unigram_count
+    
 
 
 '''
@@ -57,7 +75,12 @@ Parameters: 2D list of strs
 Returns: list of strs
 '''
 def getStartWords(corpus):
-    return
+    unique_start_words=[]
+    for words in corpus:
+        if words[0] not in unique_start_words:
+            unique_start_words.append(words[0])
+    return unique_start_words
+    
 
 
 '''
@@ -289,6 +312,11 @@ if __name__ == "__main__":
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     test.runWeek1()
+    #test.testLoadBook()
+    #test.testGetCorpusLength()
+    #test.testBuildVocabulary()
+    test.testCountUnigrams()
+    test.testGetStartWords()
 
     ## Uncomment these for Week 2 ##
 """
