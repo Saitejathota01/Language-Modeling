@@ -17,7 +17,14 @@ Parameters: str
 Returns: 2D list of strs
 '''
 def loadBook(filename):
-    return
+    openingbook=open(filename,"r")
+    readinglines= openingbook.read()
+    corpus=[]
+    for words in readinglines.split("\n"):
+        if len(words) > 0:
+           line=words.split(" ")
+           corpus.append(line)   
+    return corpus      
 
 
 '''
@@ -27,7 +34,9 @@ Parameters: 2D list of strs
 Returns: int
 '''
 def getCorpusLength(corpus):
-    return
+    total_number_of_words_in_list =sum(len(Row) for Row in corpus)
+    return total_number_of_words_in_list
+
 
 
 '''
@@ -289,6 +298,8 @@ if __name__ == "__main__":
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
     test.runWeek1()
+    #test.testLoadBook()
+    test.testGetCorpusLength()
 
     ## Uncomment these for Week 2 ##
 """
