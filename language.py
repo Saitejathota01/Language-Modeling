@@ -285,7 +285,13 @@ Parameters: 2D list of strs ; str
 Returns: None
 '''
 def graphTopNextWords(corpus, word):
-    return
+    unigram_count=countUnigrams(corpus)
+    bigram_count=countBigrams(corpus)
+    bigram_probs=buildBigramProbs(unigram_count,bigram_count)
+    nextWords=getTopWords(10, list(bigram_probs[word].values())[0],list(bigram_probs[word].values())[1], ignore)
+    barPlot(nextWords,"graph top next words")
+    return None
+    
 
 
 '''
@@ -295,7 +301,27 @@ Parameters: 2D list of strs ; 2D list of strs ; int
 Returns: dict mapping strs to (lists of values)
 '''
 def setupChartData(corpus1, corpus2, topWordCount):
-    return
+    first_unigram=buildVocabulary(corpus1)
+    second_unigram=buildVocabulary(corpus2)
+    unigram_prb1=buildUnigramProbs(first_unigram,unigramCounts=countUnigrams(corpus1),totalCount=getCorpusLength(corpus1))
+    unigram_prb2=buildUnigramProbs(second_unigram,unigramCounts=countUnigrams(corpus2),totalCount=getCorpusLength(corpus2))
+    topword1=getTopWords(topWordCount,first_unigram,unigram_prb1,ignore)
+    topword2=getTopWords(topWordCount,second_unigram,unigram_prb2,ignore)
+    topword_list=[]
+    for word in topword1:
+        if word not in topword_list:
+            topword_list.append(word)
+    for word in topword2:
+        if word not in topword_list:
+            topword_list.append(word)
+    Prob1=buildUnigramProbs(topword_list,unigramCounts=countUnigrams(corpus1),totalCount=getCorpusLength(corpus1))
+    Prob2=buildUnigramProbs(topword_list,unigramCounts=countUnigrams(corpus2),totalCount=getCorpusLength(corpus2))
+    newDict={}
+    newDict["topWords"]=topword_list
+    newDict["corpus1Probs"]=Prob1
+    newDict["corpus2Probs"]=Prob2
+    return newDict
+    
 
 
 '''
